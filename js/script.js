@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // WhatsApp order confirmation
     const confirmOrderBtn = document.getElementById('confirmOrder');
-    confirmOrderBtn.addEventListener('click', function() {
+    confirmOrderBtn.addEventListener('click', function () {
         if (cart.length === 0) {
             alert('Please add items to your order first');
             return;
@@ -287,17 +287,9 @@ document.addEventListener('DOMContentLoaded', function() {
         message += `Bus Number: ${busNumber}\n`;
         message += 'Estimated Arrival Time: [Your arrival time at Attingal Bus Stand]';
 
-        // Create a temporary link for redirection
+        // Redirect to WhatsApp
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/9539024555?text=${encodedMessage}`;
-
-        // Create a temporary anchor element and trigger click
-        const link = document.createElement('a');
-        link.href = whatsappUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open(whatsappUrl, '_blank'); // Open WhatsApp in a new tab
     });
 });
