@@ -488,6 +488,68 @@ footer p {
     transform: translateY(0);
 }
 
+/* Customer's Corner - Questions Section */
+.question {
+    background-color: #f9f9f9; /* Light background for the question box */
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow); /* Subtle shadow for a modern look */
+    transition: var(--transition); /* Smooth hover effect */
+}
+
+.question:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.question h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color); /* Highlighted question title */
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.question p {
+    font-size: 1rem;
+    color: var(--text-color); /* Standard text color for the question content */
+    line-height: 1.6;
+}
+
+/* Options for Questions */
+.options {
+    list-style-type: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.options li {
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--white); /* White background for options */
+    border-left: 4px solid var(--secondary-color); /* Accent border for options */
+    border-radius: 5px;
+    transition: var(--transition); /* Smooth hover effect */
+    cursor: pointer;
+}
+
+.options li:hover {
+    background-color: var(--light-color); /* Light gray on hover */
+    border-left-color: var(--primary-color); /* Change border color on hover */
+}
+
+/* Answer Section */
+.answer {
+    background-color: #e8f5e9; /* Light green for correct answers */
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--dark-color); /* Dark text for readability */
+    font-weight: 500;
+    box-shadow: var(--shadow); /* Subtle shadow for the answer box */
+}
+
 /* Ad Popup Styles */
 .ad-popup {
     display: none;
