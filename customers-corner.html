@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer's Corner - [Your Stall Name]</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Customer's Corner</h1>
+        <p>Daily updates and resources for our valued customers</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customers-corner.html">Customer's Corner</a></li>
+            <li><a href="orders.html">Order Now</a></li>
+            <li><a href="games.html">Games</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="button-grid">
+            <button class="action-btn" onclick="showPopup('news')">Today's News Highlights</button>
+            <button class="action-btn" onclick="showPopup('neet')">NEET Prep Question</button>
+            <button class="action-btn" onclick="showPopup('jee')">JEE Prep Question</button>
+            <button class="action-btn" onclick="showPopup('ssc')">SSC Prep Question</button>
+            <button class="action-btn" onclick="showPopup('health')">Health Tip of the Day</button>
+        </div>
+        
+        <!-- The Modal/Popup -->
+        <div id="infoPopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+                <h2 id="popupTitle">Title</h2>
+                <div id="popupContent">
+                    Content will load here...
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Visit us at: [Your Location] | Evening Hours: 5:30 PM - 8:30 PM</p>
+    </footer>
+    
+    <script src="js/script.js"></script>
+    <!-- Ad Popup (on all pages) -->
+<div id="adPopup" class="ad-popup">
+    <div class="ad-content">
+        <span class="close-ad">&times;</span>
+        <h3>Advertisement</h3>
+        <p>Want your ad to be up here?</p>
+        <p>Then contact <strong>7558856893</strong> right away!</p>
+        <div class="ad-contact">
+            <a href="tel:7558856893" class="call-btn">Call Now</a>
+            <a href="https://wa.me/917558856893" class="whatsapp-btn">WhatsApp</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
