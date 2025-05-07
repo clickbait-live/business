@@ -136,4 +136,168 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.display = 'none';
         }
     });
+
+    const travelBtn = document.getElementById('travelBtn');
+    const menuBtn = document.getElementById('menuBtn');
+    const travelContent = document.getElementById('travelContent');
+    const menuContent = document.getElementById('menuContent');
+
+    // Initially set both buttons as inactive
+    travelBtn.classList.remove('active');
+    menuBtn.classList.remove('active');
+    travelContent.classList.remove('active');
+
+    // Add event listeners to activate buttons when clicked
+    travelBtn.addEventListener('click', function () {
+        travelBtn.classList.add('active');
+        menuBtn.classList.remove('active');
+        travelContent.classList.add('active');
+        menuContent.classList.remove('active');
+    });
+
+    menuBtn.addEventListener('click', function () {
+        menuBtn.classList.remove('inactive');
+        menuBtn.classList.add('active');
+        travelBtn.classList.remove('active');
+        menuContent.classList.add('active');
+        travelContent.classList.remove('active');
+    });
+
+    // Shopping cart functionality
+    const cart = [];
+    const cartItemsList = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartSection = document.getElementById('cart');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const DELIVERY_CHARGE = 15;
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const item = this.getAttribute('data-item');
+            const price = parseFloat(this.getAttribute('data-price'));
+
+            // Check if item already exists in the cart
+            const existingItem = cart.find(cartItem => cartItem.item === item);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ item, price, quantity: 1 });
+            }
+
+            updateCart();
+
+            // Show cart if it was hidden
+            if (cartSection.classList.contains('hidden')) {
+                cartSection.classList.remove('hidden');
+            }
+        });
+    });
+
+    function updateCart() {
+        // Clear current items
+        cartItemsList.innerHTML = '';
+
+        // Add all items
+        let total = 0;
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${item.item} (x${item.quantity})</span>
+                <span>₹${item.price * item.quantity}</span>
+                <div>
+                    <button class="decrement-item" data-index="${index}">-</button>
+                    <button class="increment-item" data-index="${index}">+</button>
+                    <button class="remove-item" data-index="${index}">✕</button>
+                </div>
+            `;
+            cartItemsList.appendChild(li);
+            total += item.price * item.quantity;
+        });
+
+        // Add event listeners to increment, decrement, and remove buttons
+        document.querySelectorAll('.increment-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                cart[index].quantity += 1;
+                updateCart();
+            });
+        });
+
+        document.querySelectorAll('.decrement-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                } else {
+                    cart.splice(index, 1);
+                }
+                updateCart();
+                if (cart.length === 0) {
+                    cartSection.classList.add('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                cart.splice(index, 1);
+                updateCart();
+                if (cart.length === 0) {
+                    cartSection.classList.add('hidden');
+                }
+            });
+        });
+
+        // Update total with delivery charge
+        if (cart.length > 0) {
+            total += DELIVERY_CHARGE;
+            cartTotal.textContent = `Total: ₹${total} (including ₹${DELIVERY_CHARGE} delivery charge)`;
+            cartTotal.style.display = 'block';
+        } else {
+            cartTotal.style.display = 'none'; // Hide total when cart is empty
+        }
+    }
+
+    // WhatsApp order confirmation
+    const confirmOrderBtn = document.getElementById('confirmOrder');
+    confirmOrderBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+            alert('Please add items to your order first');
+            return;
+        }
+
+        const busNumber = prompt('Please enter your KSRTC bus number plate:');
+        if (!busNumber) {
+            alert('Bus number is required to place your order');
+            return;
+        }
+
+        // Prepare WhatsApp message
+        let message = 'Hello! I would like to order:\n\n';
+        let total = 0;
+
+        cart.forEach(item => {
+            message += `- ${item.item} (x${item.quantity}): ₹${item.price * item.quantity}\n`;
+            total += item.price * item.quantity;
+        });
+
+        total += DELIVERY_CHARGE;
+        message += `\nTotal: ₹${total} (including ₹${DELIVERY_CHARGE} delivery charge)\n\n`;
+        message += `Bus Number: ${busNumber}\n`;
+        message += 'Estimated Arrival Time: [Your arrival time at Attingal Bus Stand]';
+
+        // Create a temporary link for redirection
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/9539024555?text=${encodedMessage}`;
+
+        // Create a temporary anchor element and trigger click
+        const link = document.createElement('a');
+        link.href = whatsappUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
 });
