@@ -167,9 +167,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const cart = [];
     const cartItemsList = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
-    const cartSection = document.getElementById('cart');
+    const cartModal = document.getElementById('cartModal');
+    const cartButton = document.getElementById('cartButton');
+    const closeCartModal = document.getElementById('closeCartModal');
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     const DELIVERY_CHARGE = 15;
+
+    // Show cart modal when "Your Cart" button is clicked
+    cartButton.addEventListener('click', () => {
+        cartModal.classList.remove('hidden');
+    });
+
+    // Close cart modal
+    closeCartModal.addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+    });
 
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
