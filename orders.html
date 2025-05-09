@@ -85,11 +85,28 @@
                     </div>
                 </div>
                 
+                <!-- Remove this section -->
+                <!--
                 <div id="cart" class="cart-section hidden">
                     <h4>Your Order</h4>
                     <ul id="cartItems"></ul>
                     <p id="cartTotal">Total: ₹0</p>
                     <button id="confirmOrder" class="whatsapp-btn">Confirm via WhatsApp</button>
+                </div>
+                -->
+                
+                <!-- Add this button -->
+                <button id="cartButton" class="cart-button">Your Cart</button>
+
+                <!-- Add a modal for the cart -->
+                <div id="cartModal" class="cart-modal hidden">
+                    <div class="cart-modal-content">
+                        <span id="closeCartModal" class="close-modal">&times;</span>
+                        <h4>Your Order</h4>
+                        <ul id="cartItems"></ul>
+                        <p id="cartTotal">Total: ₹0</p>
+                        <button id="confirmOrder" class="whatsapp-btn">Confirm via WhatsApp</button>
+                    </div>
                 </div>
             </div>
             
